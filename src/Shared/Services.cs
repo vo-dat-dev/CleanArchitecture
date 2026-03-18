@@ -30,4 +30,9 @@ public static class Services
     /// The name of the RabbitMQ messaging service.
     /// </summary>
     public const string RabbitMq = "rabbitmq";
+
+    /// <summary>
+    /// The name of the MinIO object storage service.
+    /// </summary>
+    public const string MinIO = "minio";
 }

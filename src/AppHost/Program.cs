@@ -18,11 +18,16 @@ var rabbitMq = builder
     .AddRabbitMQ(Services.RabbitMq)
     .WithManagementPlugin();
 
+var minio = builder
+    .AddMinioContainer(Services.MinIO);
+
 var web = builder.AddProject<Projects.Web>(Services.WebApi)
     .WithReference(databaseServer)
     .WaitFor(databaseServer)
     .WithReference(rabbitMq)
     .WaitFor(rabbitMq)
+    .WithReference(minio)
+    .WaitFor(minio)
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Scalar API Reference";
