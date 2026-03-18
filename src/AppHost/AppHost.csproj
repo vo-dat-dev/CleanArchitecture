@@ -26,6 +26,7 @@
     <ProjectReference Include="..\Shared\Shared.csproj" IsAspireProjectResource="false" />
     <ProjectReference Include="..\Web\Web.csproj" />
     <ProjectReference Include="..\CustomerService\src\Web\CustomerService.Web.csproj" />
+    <ProjectReference Include="..\PdfExportService\src\Worker\PdfExportService.Worker.csproj" />
   </ItemGroup>
 
 </Project>

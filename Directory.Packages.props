@@ -50,6 +50,9 @@
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.SQLite" Version="13.1.1" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="13.1.1" />
     <!--#endif-->
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.4.1" />
+    <PackageVersion Include="QuestPDF" Version="2025.1.0" />
+    <PackageVersion Include="Minio" Version="6.0.4" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.1.2" />
     <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="13.1.2" />
     <PackageVersion Include="Aspire.Hosting.Testing" Version="13.1.2" />

@@ -22,8 +22,11 @@ var rabbitMq = builder
     .AddRabbitMQ(Services.RabbitMq, userName: rabbitMqUser, password: rabbitMqPassword)
     .WithManagementPlugin();
 
+var minioUser = builder.AddParameter("minio-user", "minioadmin", secret: false);
+var minioPassword = builder.AddParameter("minio-password", "minioadmin", secret: true);
+
 var minio = builder
-    .AddMinioContainer(Services.MinIO);
+    .AddMinioContainer(Services.MinIO, rootUser: minioUser, rootPassword: minioPassword);
 
 var pgUser = builder.AddParameter("customer-pg-user", secret: false);
 var pgPassword = builder.AddParameter("customer-pg-password", secret: true);
@@ -69,5 +72,11 @@ builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp-React")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
 #endif
+
+builder.AddProject<Projects.PdfExportService_Worker>(Services.PdfExportWorker)
+    .WithReference(rabbitMq)
+    .WaitFor(rabbitMq)
+    .WithReference(minio)
+    .WaitFor(minio);
 
 builder.Build().Run();

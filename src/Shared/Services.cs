@@ -45,4 +45,9 @@ public static class Services
     /// The name of the Customer Service database.
     /// </summary>
     public const string CustomerServiceDatabase = "CustomerServiceDb";
+
+    /// <summary>
+    /// The name of the PDF Export Worker service.
+    /// </summary>
+    public const string PdfExportWorker = "pdf-export-worker";
 }
