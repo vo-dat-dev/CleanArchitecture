@@ -15,8 +15,11 @@ var databaseServer = builder
     .WithSqliteWeb();
 #endif
 
+var rabbitMqUser = builder.AddParameter("rabbitmq-user", secret: false);
+var rabbitMqPassword = builder.AddParameter("rabbitmq-password", secret: true);
+
 var rabbitMq = builder
-    .AddRabbitMQ(Services.RabbitMq)
+    .AddRabbitMQ(Services.RabbitMq, userName: rabbitMqUser, password: rabbitMqPassword)
     .WithManagementPlugin();
 
 var minio = builder
