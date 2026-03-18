@@ -14,9 +14,15 @@ var databaseServer = builder
     .AddSqlite(Services.Database);
 #endif
 
+var rabbitMq = builder
+    .AddRabbitMQ(Services.RabbitMq)
+    .WithManagementPlugin();
+
 var web = builder.AddProject<Projects.Web>(Services.WebApi)
     .WithReference(databaseServer)
     .WaitFor(databaseServer)
+    .WithReference(rabbitMq)
+    .WaitFor(rabbitMq)
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Scalar API Reference";

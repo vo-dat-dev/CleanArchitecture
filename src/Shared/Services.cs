@@ -25,4 +25,9 @@ public static class Services
     /// This is the name of the database that will be created and used by the application.
     /// </summary>
     public const string Database = "CleanArchitectureDb";
+
+    /// <summary>
+    /// The name of the RabbitMQ messaging service.
+    /// </summary>
+    public const string RabbitMq = "rabbitmq";
 }
