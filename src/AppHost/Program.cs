@@ -22,8 +22,13 @@ var rabbitMq = builder
 var minio = builder
     .AddMinioContainer(Services.MinIO);
 
+var pgUser = builder.AddParameter("customer-pg-user", secret: false);
+var pgPassword = builder.AddParameter("customer-pg-password", secret: true);
+
 var customerDb = builder
-    .AddPostgres("customer-postgres")
+    .AddPostgres("customer-postgres", userName: pgUser, password: pgPassword)
+    .WithHostPort(59157)
+    .WithDataVolume("customer-postgres-data")
     .AddDatabase(Services.CustomerServiceDatabase);
 
 var customerService = builder.AddProject<Projects.CustomerService_Web>(Services.CustomerServiceApi)
@@ -55,6 +60,8 @@ builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp-React")
     .WithRunScript("start")
     .WithReference(web)
     .WaitFor(web)
+    .WithReference(customerService)
+    .WaitFor(customerService)
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();

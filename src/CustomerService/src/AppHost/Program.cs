@@ -3,11 +3,10 @@ using CustomerService.Shared;
 var builder = DistributedApplication.CreateBuilder(args);
 
 var databaseServer = builder
-    .AddSqlite(Services.Database);
+    .AddConnectionString(Services.Database);
 
 var web = builder.AddProject<Projects.Web>(Services.WebApi)
     .WithReference(databaseServer)
-    .WaitFor(databaseServer)
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Scalar API Reference";

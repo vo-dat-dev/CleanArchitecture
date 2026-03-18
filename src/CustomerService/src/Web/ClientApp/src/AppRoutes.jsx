@@ -1,4 +1,5 @@
 import { Counter } from "./components/Counter";
+import { Customers } from "./components/Customers";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { LoginPage } from "./components/api-authorization/LoginPage";
@@ -13,6 +14,10 @@ const AppRoutes = [
   {
     path: '/counter',
     element: <Counter />
+  },
+  {
+    path: '/customers',
+    element: <ProtectedRoute><Customers /></ProtectedRoute>
   },
   {
     path: '/fetch-data',
