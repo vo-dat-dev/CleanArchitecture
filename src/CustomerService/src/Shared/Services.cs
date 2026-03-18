@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Shared;
+﻿namespace CustomerService.Shared;
 
 public static class Services
 {
@@ -24,25 +24,5 @@ public static class Services
     /// The name of the Database.
     /// This is the name of the database that will be created and used by the application.
     /// </summary>
-    public const string Database = "CleanArchitectureDb";
-
-    /// <summary>
-    /// The name of the RabbitMQ messaging service.
-    /// </summary>
-    public const string RabbitMq = "rabbitmq";
-
-    /// <summary>
-    /// The name of the MinIO object storage service.
-    /// </summary>
-    public const string MinIO = "minio";
-
-    /// <summary>
-    /// The name of the Customer Service API.
-    /// </summary>
-    public const string CustomerServiceApi = "customer-service-api";
-
-    /// <summary>
-    /// The name of the Customer Service database.
-    /// </summary>
-    public const string CustomerServiceDatabase = "CustomerServiceDb";
+    public const string Database = "CustomerServiceDb";
 }

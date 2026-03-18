@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>CustomerService.Domain</RootNamespace>
+    <AssemblyName>CustomerService.Domain</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Contracts" />
+  </ItemGroup>
+
+</Project>

@@ -11,7 +11,8 @@ var databaseServer = builder.AddSqlServer(Services.DatabaseServer)
     .AddDatabase(Services.Database);
 #else
 var databaseServer = builder
-    .AddSqlite(Services.Database);
+    .AddSqlite(Services.Database)
+    .WithSqliteWeb();
 #endif
 
 var rabbitMq = builder
@@ -20,6 +21,21 @@ var rabbitMq = builder
 
 var minio = builder
     .AddMinioContainer(Services.MinIO);
+
+var customerDb = builder
+    .AddPostgres("customer-postgres")
+    .AddDatabase(Services.CustomerServiceDatabase);
+
+var customerService = builder.AddProject<Projects.CustomerService_Web>(Services.CustomerServiceApi)
+    .WithReference(customerDb)
+    .WaitFor(customerDb)
+    .WithReference(rabbitMq)
+    .WaitFor(rabbitMq)
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayText = "Customer Service API";
+        url.Url = "/scalar";
+    });
 
 var web = builder.AddProject<Projects.Web>(Services.WebApi)
     .WithReference(databaseServer)
@@ -35,7 +51,7 @@ var web = builder.AddProject<Projects.Web>(Services.WebApi)
     });
 
 #if (!UseApiOnly)
-builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
+builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp-React")
     .WithRunScript("start")
     .WithReference(web)
     .WaitFor(web)
