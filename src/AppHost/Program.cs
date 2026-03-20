@@ -20,13 +20,15 @@ var rabbitMqPassword = builder.AddParameter("rabbitmq-password", secret: true);
 
 var rabbitMq = builder
     .AddRabbitMQ(Services.RabbitMq, userName: rabbitMqUser, password: rabbitMqPassword)
-    .WithManagementPlugin();
+    .WithManagementPlugin()
+    .WithDataVolume("rabbitmq-data");
 
 var minioUser = builder.AddParameter("minio-user", "minioadmin", secret: false);
 var minioPassword = builder.AddParameter("minio-password", "minioadmin", secret: true);
 
 var minio = builder
-    .AddMinioContainer(Services.MinIO, rootUser: minioUser, rootPassword: minioPassword);
+    .AddMinioContainer(Services.MinIO, rootUser: minioUser, rootPassword: minioPassword)
+    .WithDataVolume("minio-data");
 
 var pgUser = builder.AddParameter("customer-pg-user", secret: false);
 var pgPassword = builder.AddParameter("customer-pg-password", secret: true);
